@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dyl-0f-9pf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--相機-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="794-JA-Bgc">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <segue destination="m4y-oE-NrM" kind="embed" id="UWu-dR-4Jl"/>
+                                </connections>
+                            </containerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PK2-sN-Hj2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="42.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Kx-6Y-kSD">
+                                        <rect key="frame" x="0.0" y="0.0" width="83" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Flash"/>
+                                        <connections>
+                                            <action selector="flashModeSetting:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C9W-l6-YlP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwz-wE-BLc">
+                                        <rect key="frame" x="83" y="0.0" width="82.5" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="SwitchCamera"/>
+                                        <connections>
+                                            <action selector="switchCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5xf-eP-s3Y"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udf-d6-AWf">
+                                        <rect key="frame" x="165.5" y="0.0" width="83" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Reduce"/>
+                                        <connections>
+                                            <action selector="previewLayerRateSetting:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cNv-57-mxW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQj-Gt-ZGe">
+                                        <rect key="frame" x="248.5" y="0.0" width="82.5" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Stop"/>
+                                        <connections>
+                                            <action selector="stopRunning:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C0S-iR-iWO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WiZ-ZO-NXb">
+                                        <rect key="frame" x="331" y="0.0" width="83" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Power"/>
+                                        <connections>
+                                            <action selector="startRunning:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pD3-vO-acw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Zmc-q8-3I9">
+                                <rect key="frame" x="0.0" y="819.5" width="414" height="42.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcG-vB-9JF">
+                                        <rect key="frame" x="0.0" y="0.0" width="67" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Album"/>
+                                        <connections>
+                                            <action selector="userAlbum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lA4-75-FRa"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmM-dr-Ya9">
+                                        <rect key="frame" x="87" y="0.0" width="66.5" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="HDR"/>
+                                        <connections>
+                                            <action selector="cameraHDR:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Baa-Sc-d0Q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLX-az-hhf">
+                                        <rect key="frame" x="173.5" y="0.0" width="67" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Camera"/>
+                                        <connections>
+                                            <action selector="capturePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hoe-YG-bmw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2r-rH-1wH">
+                                        <rect key="frame" x="260.5" y="0.0" width="66.5" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Minus"/>
+                                        <connections>
+                                            <action selector="caremaZoomOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TrM-Dl-KFf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nR7-Po-8cV">
+                                        <rect key="frame" x="347" y="0.0" width="67" height="42.5"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="Plus"/>
+                                        <connections>
+                                            <action selector="caremaZoomIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mxV-BK-2Ci"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-0.40000000000000002" minValue="-0.40000000000000002" maxValue="1.6000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="OAI-0v-yKD">
+                                <rect key="frame" x="18" y="753.5" width="378" height="31"/>
+                                <connections>
+                                    <action selector="caremaZoom:" destination="BYZ-38-t0r" eventType="valueChanged" id="z3k-C6-0cA"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Zmc-q8-3I9" secondAttribute="bottom" id="6f5-i2-fhP"/>
+                            <constraint firstItem="794-JA-Bgc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Mha-QG-dhU"/>
+                            <constraint firstItem="Zmc-q8-3I9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="OjT-gF-j3m"/>
+                            <constraint firstItem="OAI-0v-yKD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="UaT-3d-Va1"/>
+                            <constraint firstAttribute="trailing" secondItem="PK2-sN-Hj2" secondAttribute="trailing" id="VSS-nI-bcD"/>
+                            <constraint firstItem="PK2-sN-Hj2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Yv7-nH-0Ez"/>
+                            <constraint firstItem="Zmc-q8-3I9" firstAttribute="top" secondItem="OAI-0v-yKD" secondAttribute="bottom" constant="36" id="YvB-39-MZJ"/>
+                            <constraint firstItem="794-JA-Bgc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZVl-xi-1t6"/>
+                            <constraint firstItem="PK2-sN-Hj2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cw7-3S-rco"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OAI-0v-yKD" secondAttribute="trailing" constant="20" id="lD1-Zb-fYe"/>
+                            <constraint firstItem="794-JA-Bgc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ljK-h6-1XY"/>
+                            <constraint firstAttribute="bottom" secondItem="794-JA-Bgc" secondAttribute="bottom" id="teX-wL-InO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zmc-q8-3I9" secondAttribute="trailing" id="vVt-ie-9kd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="相機" id="nvs-zi-2RQ"/>
+                    <connections>
+                        <outlet property="zoomSlider" destination="OAI-0v-yKD" id="jds-3S-9Sk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1039.1304347826087" y="92.410714285714278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0L2-KY-cli">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dyl-0f-9pf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0CM-fo-0qj">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="NaE-jF-wZ5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nue-nb-ZqT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="113.04347826086958" y="93.75"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="8s8-1g-u71">
+            <objects>
+                <viewController id="m4y-oE-NrM" customClass="WWCameraViewController" customModule="WWCameraPickerController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fC7-cX-NRF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="mXL-k3-rYp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RNd-8s-pck" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2003" y="93"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Album" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Camera" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Flash" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="HDR" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Minus" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Plus" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Power" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Reduce" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Stop" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="SwitchCamera" width="42.666667938232422" height="42.666667938232422"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
