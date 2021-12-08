@@ -19,6 +19,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         takePhotoAction()
+        takeMovieAction()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,13 +45,14 @@ final class ViewController: UIViewController {
     @IBAction func caremaZoom(_ sender: UISlider) { _ = cameraViewController?.cameraZoom(with: 0.5, factor: CGFloat(sender.value)) }
     @IBAction func userAlbum(_ sender: UIButton) { cameraViewController?.album() }
     @IBAction func cameraHDR(_ sender: UIButton) { _ = cameraViewController?.cameraHDR(isEnable: false) }
+    @IBAction func startRecording(_ sender: UIButton) { cameraViewController?.startRecording(with: 3) }
+    @IBAction func stopRecording(_ sender: UIButton) { cameraViewController?.stopRecording() }
 }
 
 // MARK: - 小工具
 extension ViewController {
     
     /// 拍照的相關動作 (拍照 => 存照片)
-    /// NSCameraUsageDescription / NSPhotoLibraryAddUsageDescription / NSPhotoLibraryUsageDescription
     private func takePhotoAction() {
         
         guard let cameraViewController = cameraViewController else { return }
@@ -69,5 +71,18 @@ extension ViewController {
                 })
             }
         })
+    }
+    
+    /// 錄影的相關動作 (錄影片 => 存影片)
+    private func takeMovieAction() {
+        
+        guard let cameraViewController = cameraViewController else { return }
+        
+        cameraViewController.takeMovie { result in
+            switch result {
+            case .failure(let error): wwPrint(error)
+            case .success(let isSuccess): wwPrint(isSuccess)
+            }
+        }
     }
 }

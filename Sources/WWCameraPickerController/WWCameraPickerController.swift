@@ -11,14 +11,18 @@ import PhotosUI
 
 open class WWCameraViewController: UIViewController {
         
+    @IBInspectable public var useMovieOutput: Bool = false
+    
     private let captureSession = AVCaptureSession()
     private let capturePhotoOutput = AVCapturePhotoOutput()
-    
+    private let captureMovieFileOutput = AVCaptureMovieFileOutput()
+
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var cameraModeSetting: (flashMode: AVCaptureDevice.FlashMode, isHighResolution: Bool, quality: AVCapturePhotoOutput.QualityPrioritization) = (.auto, true, .quality)
     
     private var takePhotoClosure: ((Result<AVCapturePhoto, Error>) -> Void)?
-    
+    private var takeMovieClosure: ((Result<Bool, Error>) -> Void)?
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         initSetting()
@@ -31,6 +35,25 @@ extension WWCameraViewController: AVCapturePhotoCaptureDelegate {
     public func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error { takePhotoClosure?(.failure(error)); return }
         takePhotoClosure?(.success(photo))
+    }
+}
+
+// MARK: - AVCaptureFileOutputRecordingDelegate
+extension WWCameraViewController: AVCaptureFileOutputRecordingDelegate {
+    
+    public func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
+        if let error = error { self.takeMovieClosure?(.failure(error)) }
+        
+        PHPhotoLibrary.shared()._saveVideo(at: outputFileURL) { result in
+            
+            _ = FileManager.default._removeFile(at: outputFileURL)
+            
+            switch result {
+            case .failure(let error): self.takeMovieClosure?(.failure(error))
+            case .success(let isSuccess): self.takeMovieClosure?(.success(isSuccess))
+            }
+        }
     }
 }
 
@@ -53,12 +76,26 @@ extension WWCameraViewController {
             ._capturePhoto(isHighResolutionPhotoEnabled: cameraModeSetting.isHighResolution, flashMode: cameraModeSetting.flashMode, delegate: self)
     }
     
+    /// [執行錄影功能](https://www.jianshu.com/p/ca446523fe07)
+    /// - Parameter seconds: [最多錄幾秒](https://www.jianshu.com/p/6a1cd03343c9)
+    public func startRecording(with seconds: Float64 = .infinity) {
+        captureMovieFileOutput.maxRecordedDuration = CMTimeMakeWithSeconds(seconds, preferredTimescale: Int32(1 * NSEC_PER_SEC))
+        captureMovieFileOutput.startRecording(to: tempMovieFileUrl(), recordingDelegate: self)
+    }
+    
+    /// 停止錄影功能
+    public func stopRecording() { captureMovieFileOutput.stopRecording() }
+    
     /// 切換前後鏡頭
     public func switchCamera() -> Result<Bool, Error> { return captureSession._switchCamera() }
     
     /// 取得拍攝相片的相關資訊
     /// - Parameter photo: Result<AVCapturePhoto, Error>
     public func takePhoto(_ result: @escaping ((Result<AVCapturePhoto, Error>) -> Void)) { takePhotoClosure = result }
+    
+    /// 取得錄影的相關資訊
+    /// - Parameter result: Result<Bool, Error>
+    public func takeMovie(_ result: @escaping ((Result<Bool, Error>) -> Void)) { takeMovieClosure = result }
     
     /// 儲存圖片到使用者相簿
     /// - Parameters:
@@ -138,8 +175,14 @@ extension WWCameraViewController {
 // MARK: - 小工具
 extension WWCameraViewController {
     
-    /// [取得鏡頭 => NSCameraUsageDescription](https://medium.com/彼得潘的-swift-ios-app-開發教室/qrcode掃起來-24e086df902c)
     private func initSetting() {
+        _ = photoSetting()
+        if (useMovieOutput) { _ = movieSetting() }
+    }
+    
+    /// [取得鏡頭 => NSCameraUsageDescription](https://medium.com/彼得潘的-swift-ios-app-開發教室/qrcode掃起來-24e086df902c)
+    /// - Returns: Bool
+    private func photoSetting() -> Bool {
         
         guard let device = AVCaptureDevice._default(for: .video),
               let input = try? device._captureInput().get(),
@@ -147,11 +190,36 @@ extension WWCameraViewController {
               captureSession._canAddInput(input),
               captureSession._canAddOutput(capturePhotoOutput)
         else {
-            return
+            return false
         }
         
         previewLayer = _previewLayer
         view.layer.addSublayer(_previewLayer)
+        
+        return true
+    }
+
+    /// [取得麥克風 => NSMicrophoneUsageDescription](https://ithelp.ithome.com.tw/articles/10206444)
+    /// - UIFileSharingEnabled
+    /// - Returns: Bool
+    private func movieSetting() -> Bool {
+        
+        guard let device = AVCaptureDevice._default(for: .audio),
+              let input = try? device._captureInput().get(),
+              captureSession._canAddInput(input),
+              captureSession._canAddOutput(captureMovieFileOutput)
+        else {
+            return false
+        }
+        
+        return true
+    }
+    
+    /// 產生要暫存影片的URL (~/tmp/ooxx.mov)
+    /// - Parameter name: String
+    /// - Returns: URL
+    private func tempMovieFileUrl(with name: String = Date().description) -> URL {
+        return FileManager.default._temporaryDirectory().appendingPathComponent("\(name).mov")
     }
 }
 

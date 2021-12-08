@@ -348,4 +348,42 @@ extension PHPhotoLibrary {
             result(.success(isSuccess))
         })
     }
+    
+    /// [複製影片到使用者相簿](https://stackoverflow.com/questions/29482738/swift-save-video-from-nsurl-to-user-camera-roll)
+    /// - Parameters:
+    ///   - url: 要複製的影片URL
+    ///   - result: Result<Bool, Error>
+    func _saveVideo(at url: URL, result: @escaping (Result<Bool, Error>) -> Void) {
+        
+        self.performChanges {
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+        } completionHandler: { isSuccess, error in
+            if let error = error { result(.failure(error)); return }
+            result(.success(isSuccess))
+        }
+    }
+}
+
+// MARK: - FileManager (class function)
+extension FileManager {
+        
+    /// User的「暫存」資料夾
+    /// - => ~/tmp
+    /// - Returns: URL
+    func _temporaryDirectory() -> URL { return URL(fileURLWithPath: NSTemporaryDirectory()) }
+    
+    /// 移除檔案
+    /// - Parameter atURL: URL
+    /// - Returns: Result<Bool, Error>
+    func _removeFile(at atURL: URL?) -> Result<Bool, Error> {
+        
+        guard let atURL = atURL else { return .success(false) }
+        
+        do {
+            try removeItem(at: atURL)
+            return .success(true)
+        } catch  {
+            return .failure(error)
+        }
+    }
 }

@@ -119,11 +119,28 @@
                                     <action selector="caremaZoom:" destination="BYZ-38-t0r" eventType="valueChanged" id="z3k-C6-0cA"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvn-Uq-wLa">
+                                <rect key="frame" x="20" y="427" width="42.5" height="42.5"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Pause"/>
+                                <connections>
+                                    <action selector="stopRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OH7-HY-f1M"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TK7-dQ-VzC">
+                                <rect key="frame" x="351.5" y="427" width="42.5" height="42.5"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Record"/>
+                                <connections>
+                                    <action selector="startRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fBM-Ed-mPP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Zmc-q8-3I9" secondAttribute="bottom" id="6f5-i2-fhP"/>
+                            <constraint firstItem="TK7-dQ-VzC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ETE-pM-Sc9"/>
                             <constraint firstItem="794-JA-Bgc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Mha-QG-dhU"/>
                             <constraint firstItem="Zmc-q8-3I9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="OjT-gF-j3m"/>
                             <constraint firstItem="OAI-0v-yKD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="UaT-3d-Va1"/>
@@ -131,9 +148,12 @@
                             <constraint firstItem="PK2-sN-Hj2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Yv7-nH-0Ez"/>
                             <constraint firstItem="Zmc-q8-3I9" firstAttribute="top" secondItem="OAI-0v-yKD" secondAttribute="bottom" constant="36" id="YvB-39-MZJ"/>
                             <constraint firstItem="794-JA-Bgc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZVl-xi-1t6"/>
+                            <constraint firstItem="kvn-Uq-wLa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="a6C-f6-3lK"/>
                             <constraint firstItem="PK2-sN-Hj2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cw7-3S-rco"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TK7-dQ-VzC" secondAttribute="trailing" constant="20" id="iw3-Ze-sTz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OAI-0v-yKD" secondAttribute="trailing" constant="20" id="lD1-Zb-fYe"/>
                             <constraint firstItem="794-JA-Bgc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ljK-h6-1XY"/>
+                            <constraint firstItem="kvn-Uq-wLa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sb4-T4-DdH"/>
                             <constraint firstAttribute="bottom" secondItem="794-JA-Bgc" secondAttribute="bottom" id="teX-wL-InO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zmc-q8-3I9" secondAttribute="trailing" id="vVt-ie-9kd"/>
                         </constraints>
@@ -186,8 +206,10 @@
         <image name="Flash" width="42.666667938232422" height="42.666667938232422"/>
         <image name="HDR" width="42.666667938232422" height="42.666667938232422"/>
         <image name="Minus" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Pause" width="42.666667938232422" height="42.666667938232422"/>
         <image name="Plus" width="42.666667938232422" height="42.666667938232422"/>
         <image name="Power" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="Record" width="42.666667938232422" height="42.666667938232422"/>
         <image name="Reduce" width="42.666667938232422" height="42.666667938232422"/>
         <image name="Stop" width="42.666667938232422" height="42.666667938232422"/>
         <image name="SwitchCamera" width="42.666667938232422" height="42.666667938232422"/>
