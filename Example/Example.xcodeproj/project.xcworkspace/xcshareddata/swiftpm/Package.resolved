@@ -5,9 +5,9 @@
         "package": "WWCameraPickerController",
         "repositoryURL": "https://github.com/William-Weng/WWCameraPickerController",
         "state": {
-          "branch": "main",
-          "revision": "be3f9bdf719e74339aac5b2115d5ffbd4514b82e",
-          "version": null
+          "branch": null,
+          "revision": "3afad854920dae1bf8a1834a8c6c6647509327ad",
+          "version": "1.1.0"
         }
       },
       {
