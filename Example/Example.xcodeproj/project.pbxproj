@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D8B8716275F4626002BB566 /* WWCameraPickerController in Frameworks */ = {isa = PBXBuildFile; productRef = 3D8B8715275F4626002BB566 /* WWCameraPickerController */; };
 		3D8B8719275F465F002BB566 /* WWPrint in Frameworks */ = {isa = PBXBuildFile; productRef = 3D8B8718275F465F002BB566 /* WWPrint */; };
 		3DBCD87426F198EF00522E3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCD87326F198EF00522E3B /* AppDelegate.swift */; };
 		3DBCD87826F198EF00522E3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCD87726F198EF00522E3B /* ViewController.swift */; };
 		3DBCD87B26F198EF00522E3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DBCD87926F198EF00522E3B /* Main.storyboard */; };
 		3DBCD87D26F198F300522E3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DBCD87C26F198F300522E3B /* Assets.xcassets */; };
 		3DBCD88026F198F300522E3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DBCD87E26F198F300522E3B /* LaunchScreen.storyboard */; };
+		3DCA85CE27605C7A006710E8 /* WWCameraPickerController in Frameworks */ = {isa = PBXBuildFile; productRef = 3DCA85CD27605C7A006710E8 /* WWCameraPickerController */; };
 		3DCD2851275F3CAF000AB319 /* Extension+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD2850275F3CAF000AB319 /* Extension+.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +34,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D8B8719275F465F002BB566 /* WWPrint in Frameworks */,
-				3D8B8716275F4626002BB566 /* WWCameraPickerController in Frameworks */,
+				3DCA85CE27605C7A006710E8 /* WWCameraPickerController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,8 +120,8 @@
 			);
 			name = Example;
 			packageProductDependencies = (
-				3D8B8715275F4626002BB566 /* WWCameraPickerController */,
 				3D8B8718275F465F002BB566 /* WWPrint */,
+				3DCA85CD27605C7A006710E8 /* WWCameraPickerController */,
 			);
 			productName = Example;
 			productReference = 3DBCD87026F198EF00522E3B /* Example.app */;
@@ -151,8 +151,8 @@
 			);
 			mainGroup = 3DBCD86726F198EF00522E3B;
 			packageReferences = (
-				3D8B8714275F4626002BB566 /* XCRemoteSwiftPackageReference "WWCameraPickerController" */,
 				3D8B8717275F465F002BB566 /* XCRemoteSwiftPackageReference "WWPrint" */,
+				3DCA85CC27605C7A006710E8 /* XCRemoteSwiftPackageReference "WWCameraPickerController" */,
 			);
 			productRefGroup = 3DBCD87126F198EF00522E3B /* Products */;
 			projectDirPath = "";
@@ -389,14 +389,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3D8B8714275F4626002BB566 /* XCRemoteSwiftPackageReference "WWCameraPickerController" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/William-Weng/WWCameraPickerController";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		3D8B8717275F465F002BB566 /* XCRemoteSwiftPackageReference "WWPrint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWPrint.git";
@@ -405,18 +397,26 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		3DCA85CC27605C7A006710E8 /* XCRemoteSwiftPackageReference "WWCameraPickerController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/William-Weng/WWCameraPickerController";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3D8B8715275F4626002BB566 /* WWCameraPickerController */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D8B8714275F4626002BB566 /* XCRemoteSwiftPackageReference "WWCameraPickerController" */;
-			productName = WWCameraPickerController;
-		};
 		3D8B8718275F465F002BB566 /* WWPrint */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3D8B8717275F465F002BB566 /* XCRemoteSwiftPackageReference "WWPrint" */;
 			productName = WWPrint;
+		};
+		3DCA85CD27605C7A006710E8 /* WWCameraPickerController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DCA85CC27605C7A006710E8 /* XCRemoteSwiftPackageReference "WWCameraPickerController" */;
+			productName = WWCameraPickerController;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

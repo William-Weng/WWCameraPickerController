@@ -194,6 +194,9 @@
                         <viewLayoutGuide key="safeArea" id="mXL-k3-rYp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="useMovieOutput" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RNd-8s-pck" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
