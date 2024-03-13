@@ -58,19 +58,19 @@ extension WWCameraViewController: AVCaptureFileOutputRecordingDelegate {
 }
 
 // MARK: - 開放使用的函數 (動作)
-extension WWCameraViewController {
+public extension WWCameraViewController {
     
     /// 啟動相機預覽
-    public func startRunning() { captureSession.startRunning() }
+    func startRunning() { captureSession.startRunning() }
     
     /// 關閉相機預覽
-    public func stopRunning() { captureSession.stopRunning() }
+    func stopRunning() { captureSession.stopRunning() }
     
     /// 相機預覽是否在運作？
-    public func isRunning() -> Bool { captureSession.isRunning }
+    func isRunning() -> Bool { captureSession.isRunning }
     
     /// 執行拍照功能
-    public func capturePhoto() {
+    func capturePhoto() {
         capturePhotoOutput
             ._setting(isHighResolutionPhotoEnabled: cameraModeSetting.isHighResolution, quality: cameraModeSetting.quality)
             ._capturePhoto(isHighResolutionPhotoEnabled: cameraModeSetting.isHighResolution, flashMode: cameraModeSetting.flashMode, delegate: self)
@@ -78,30 +78,30 @@ extension WWCameraViewController {
     
     /// [執行錄影功能](https://www.jianshu.com/p/ca446523fe07)
     /// - Parameter seconds: [最多錄幾秒](https://www.jianshu.com/p/6a1cd03343c9)
-    public func startRecording(with seconds: Float64 = .infinity) {
+    func startRecording(with seconds: Float64 = .infinity) {
         captureMovieFileOutput.maxRecordedDuration = CMTimeMakeWithSeconds(seconds, preferredTimescale: Int32(1 * NSEC_PER_SEC))
         captureMovieFileOutput.startRecording(to: tempMovieFileUrl(), recordingDelegate: self)
     }
     
     /// 停止錄影功能
-    public func stopRecording() { captureMovieFileOutput.stopRecording() }
+    func stopRecording() { captureMovieFileOutput.stopRecording() }
     
     /// 切換前後鏡頭
-    public func switchCamera() -> Result<Bool, Error> { return captureSession._switchCamera() }
+    func switchCamera() -> Result<Bool, Error> { return captureSession._switchCamera() }
     
     /// 取得拍攝相片的相關資訊
     /// - Parameter photo: Result<AVCapturePhoto, Error>
-    public func takePhoto(_ result: @escaping ((Result<AVCapturePhoto, Error>) -> Void)) { takePhotoClosure = result }
+    func takePhoto(_ result: @escaping ((Result<AVCapturePhoto, Error>) -> Void)) { takePhotoClosure = result }
     
     /// 取得錄影的相關資訊
     /// - Parameter result: Result<Bool, Error>
-    public func takeMovie(_ result: @escaping ((Result<Bool, Error>) -> Void)) { takeMovieClosure = result }
+    func takeMovie(_ result: @escaping ((Result<Bool, Error>) -> Void)) { takeMovieClosure = result }
     
     /// 儲存圖片到使用者相簿
     /// - Parameters:
     ///   - image: UIImage?
     ///   - result: Result<Bool, Error>
-    public func saveImage(_ image: UIImage?, result: @escaping ((Result<Bool, Error>) -> Void)) {
+    func saveImage(_ image: UIImage?, result: @escaping ((Result<Bool, Error>) -> Void)) {
         
         PHPhotoLibrary.shared()._saveImage(image) { _result in
             switch _result {
@@ -115,74 +115,74 @@ extension WWCameraViewController {
     /// - Parameters:
     ///   - sessionPreset: [AVCaptureSession.Preset - 4:3 (.photo) / 16:9 (.high)](https://www.jianshu.com/p/9e1661805d74)
     ///   - videoGravity: [AVLayerVideoGravity - 滿版 (.resizeAspectFill) / 比例 (.resizeAspect)]
-    public func previewLayerRateSetting(sessionPreset: AVCaptureSession.Preset = .photo, videoGravity: AVLayerVideoGravity = .resizeAspect) {
+    func previewLayerRateSetting(sessionPreset: AVCaptureSession.Preset = .photo, videoGravity: AVLayerVideoGravity = .resizeAspect) {
         captureSession.sessionPreset = sessionPreset
         previewLayer?.videoGravity = videoGravity
     }
     
     /// 取得鏡頭的縮放範圍
     /// - Returns: Constant.CameraZoomRange?
-    public func cameraZoomRange() -> Constant.CameraZoomRange? { return AVCaptureDevice._default(for: .video)?._zoomRange() }
+    func cameraZoomRange() -> Constant.CameraZoomRange? { return AVCaptureDevice._default(for: .video)?._zoomRange() }
     
     /// 鏡頭縮放 (沒有動態)
     /// - Parameters:
     ///   - rate: 比率
     ///   - factor: 比率因子
     /// - Returns: Result<CGFloat?, Error>?
-    public func cameraZoom(with rate: CGFloat, factor: CGFloat) -> Result<CGFloat?, Error>? { return AVCaptureDevice._default(for: .video)?._zoom(with: rate, factor: factor) }
+    func cameraZoom(with rate: CGFloat, factor: CGFloat) -> Result<CGFloat?, Error>? { return AVCaptureDevice._default(for: .video)?._zoom(with: rate, factor: factor) }
     
     /// 鏡頭放大 (有動態)
     /// - Parameter rate: 比率
     /// - Returns: Result<CGFloat?, Error>?
-    public func cameraZoomIn(with rate: CGFloat) -> Result<CGFloat?, Error>? { return AVCaptureDevice._default(for: .video)?._zoomIn(with: rate) }
+    func cameraZoomIn(with rate: CGFloat) -> Result<CGFloat?, Error>? { return AVCaptureDevice._default(for: .video)?._zoomIn(with: rate) }
 
     /// 鏡頭縮小 (有動態)
     /// - Parameter rate: 比率
     /// - Returns: Result<CGFloat?, Error>?
-    public func cameraZoomOut(with rate: CGFloat) -> Result<CGFloat?, Error>? { return AVCaptureDevice._default(for: .video)?._zoomOut(with: rate) }
+    func cameraZoomOut(with rate: CGFloat) -> Result<CGFloat?, Error>? { return AVCaptureDevice._default(for: .video)?._zoomOut(with: rate) }
     
     /// [啟動HDR - High Dynamic Range Imaging](https://zh.wikipedia.org/zh-tw/高动态范围成像)
     /// - Parameter isEnable: Bool
     /// - Returns: Result<Bool, Error>
-    public func cameraHDR(isEnable: Bool) -> Result<Bool, Error>? { return AVCaptureDevice._default(for: .video)?._HDR(isEnable: isEnable) }
+    func cameraHDR(isEnable: Bool) -> Result<Bool, Error>? { return AVCaptureDevice._default(for: .video)?._HDR(isEnable: isEnable) }
     
     /// 產生相簿ViewController
     /// - Parameters:
     ///   - animated: Bool
     ///   - completion: (() -> Void)?
-    public func album(delegate: (UIImagePickerControllerDelegate & UINavigationControllerDelegate)? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func album(delegate: (UIImagePickerControllerDelegate & UINavigationControllerDelegate)? = nil, animated: Bool = true, completion: (() -> Void)? = nil) {
         let imagePickerController = UIImagePickerController._photoLibrary(delegate: delegate)
         self.present(imagePickerController, animated: animated) { completion?() }
     }
 }
 
 // MARK: - 開放使用的函數 (設定)
-extension WWCameraViewController {
+public extension WWCameraViewController {
     
     /// 設定閃光燈模式
     /// - Parameter flashMode: AVCaptureDevice.FlashMode
-    public func flashModeSetting(_ flashMode: AVCaptureDevice.FlashMode = .auto) { cameraModeSetting.flashMode = flashMode }
+    func flashModeSetting(_ flashMode: AVCaptureDevice.FlashMode = .auto) { cameraModeSetting.flashMode = flashMode }
     
     /// 設定使用高解析度模式
     /// - Parameter isHighResolution: Bool
-    public func highResolutionSetting(_ isHighResolution: Bool = true) { cameraModeSetting.isHighResolution = isHighResolution }
+    func highResolutionSetting(_ isHighResolution: Bool = true) { cameraModeSetting.isHighResolution = isHighResolution }
     
     /// 設定拍照品質
     /// - Parameter quality: AVCapturePhotoOutput.QualityPrioritization
-    public func qualitySetting(_ quality: AVCapturePhotoOutput.QualityPrioritization = .quality) { cameraModeSetting.quality = quality }
+    func qualitySetting(_ quality: AVCapturePhotoOutput.QualityPrioritization = .quality) { cameraModeSetting.quality = quality }
 }
 
 // MARK: - 小工具
-extension WWCameraViewController {
+private extension WWCameraViewController {
     
-    private func initSetting() {
+    func initSetting() {
         _ = photoSetting()
         if (useMovieOutput) { _ = movieSetting() }
     }
     
     /// [取得鏡頭 => NSCameraUsageDescription](https://medium.com/彼得潘的-swift-ios-app-開發教室/qrcode掃起來-24e086df902c)
     /// - Returns: Bool
-    private func photoSetting() -> Bool {
+    func photoSetting() -> Bool {
         
         guard let device = AVCaptureDevice._default(for: .video),
               let input = try? device._captureInput().get(),
@@ -202,7 +202,7 @@ extension WWCameraViewController {
     /// [取得麥克風 => NSMicrophoneUsageDescription](https://ithelp.ithome.com.tw/articles/10206444)
     /// - UIFileSharingEnabled
     /// - Returns: Bool
-    private func movieSetting() -> Bool {
+    func movieSetting() -> Bool {
         
         guard let device = AVCaptureDevice._default(for: .audio),
               let input = try? device._captureInput().get(),
@@ -218,7 +218,7 @@ extension WWCameraViewController {
     /// 產生要暫存影片的URL (~/tmp/ooxx.mov)
     /// - Parameter name: String
     /// - Returns: URL
-    private func tempMovieFileUrl(with name: String = Date().description) -> URL {
+    func tempMovieFileUrl(with name: String = Date().description) -> URL {
         return FileManager.default._temporaryDirectory().appendingPathComponent("\(name).mov")
     }
 }

@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,14 +6,14 @@ import PackageDescription
 let package = Package(
     name: "WWCameraPickerController",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v14),
     ],
     products: [
         .library(name: "WWCameraPickerController", targets: ["WWCameraPickerController"])
     ],
     dependencies: [],
     targets: [
-        .target(name: "WWCameraPickerController",dependencies: []),
+        .target(name: "WWCameraPickerController",  resources: [.copy("Privacy")]),
     ],
     swiftLanguageVersions: [
         .v5
