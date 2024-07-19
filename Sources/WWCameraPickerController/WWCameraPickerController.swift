@@ -61,7 +61,12 @@ extension WWCameraViewController: AVCaptureFileOutputRecordingDelegate {
 public extension WWCameraViewController {
     
     /// 啟動相機預覽
-    func startRunning() { captureSession.startRunning() }
+    func startRunning() {
+        
+        DispatchQueue.global(qos: .background).async {
+            self.captureSession.startRunning()
+        }
+    }
     
     /// 關閉相機預覽
     func stopRunning() { captureSession.stopRunning() }
