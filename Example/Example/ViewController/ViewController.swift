@@ -3,7 +3,7 @@
 //  WWCameraPickerController
 //
 //  Created by William.Weng on 2021/9/15.
-//  ~/Library/Caches/org.swift.swiftpm/
+//
 
 import UIKit
 import WWPrint
@@ -18,20 +18,11 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        takePhotoAction()
-        takeMovieAction()
+        initSetting()
     }
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let viewController = segue.destination as? WWCameraViewController,
-              let zoomRange = viewController.cameraZoomRange()
-        else {
-            return
-        }
-        
-        cameraViewController = viewController
-        zoomSlider._setting(value: Float(zoomRange.min), max: Float(zoomRange.max), min: Float(zoomRange.min), isContinuous: true)
+        prepareAction(for: segue, sender: sender)
     }
     
     @IBAction func startRunning(_ sender: UIButton) { cameraViewController?.startRunning() }
@@ -50,10 +41,16 @@ final class ViewController: UIViewController {
 }
 
 // MARK: - 小工具
-extension ViewController {
+private extension ViewController {
+    
+    /// 初始化設定
+    func initSetting() {
+        takePhotoAction()
+        takeMovieAction()
+    }
     
     /// 拍照的相關動作 (拍照 => 存照片)
-    private func takePhotoAction() {
+    func takePhotoAction() {
         
         guard let cameraViewController = cameraViewController else { return }
         
@@ -74,7 +71,7 @@ extension ViewController {
     }
     
     /// 錄影的相關動作 (錄影片 => 存影片)
-    private func takeMovieAction() {
+    func takeMovieAction() {
         
         guard let cameraViewController = cameraViewController else { return }
         
@@ -84,5 +81,23 @@ extension ViewController {
             case .success(let isSuccess): wwPrint(isSuccess)
             }
         }
+    }
+    
+    /// WWCameraViewController的相關設定
+    /// - Parameters:
+    ///   - segue: UIStoryboardSegue
+    ///   - sender: Any?
+    func prepareAction(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        guard let viewController = segue.destination as? WWCameraViewController,
+              let zoomRange = viewController.cameraZoomRange()
+        else {
+            return
+        }
+        
+        cameraViewController = viewController
+        cameraViewController?.defaultPosition(.back)
+        
+        zoomSlider._setting(value: Float(zoomRange.min), max: Float(zoomRange.max), min: Float(zoomRange.min), isContinuous: true)
     }
 }

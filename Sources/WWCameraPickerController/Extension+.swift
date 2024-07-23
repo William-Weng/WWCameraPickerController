@@ -220,29 +220,29 @@ extension AVCaptureSession {
     /// - Returns: Result<Bool, Error>
     func _switchCamera() -> Result<Bool, Error> {
         
-        guard self.isRunning,
+        guard isRunning,
               let frontCamera = AVCaptureDevice._wideAngleCamera().front,
               let backCamera = AVCaptureDevice._wideAngleCamera().back
         else {
             return .failure(Constant.MyError.isNotRunning)
         }
         
-        self.beginConfiguration()
-        defer { self.commitConfiguration() }
+        beginConfiguration()
+        defer { commitConfiguration() }
         
         var result = Result { return false }
         
-        self.inputs.forEach { _input in
+        inputs.forEach { _input in
             
             guard let input = _input as? AVCaptureDeviceInput else { return }
             
             switch input.device.position {
             case .front:
-                self._removeInputs([_input])
-                result = self._canAddDevices(with: [backCamera]); return
+                _removeInputs([_input])
+                result = _canAddDevices(with: [backCamera]); return
             case .back:
-                self._removeInputs([_input])
-                result = self._canAddDevices(with: [frontCamera]); return
+                _removeInputs([_input])
+                result = _canAddDevices(with: [frontCamera]); return
             default: return
             }
         }

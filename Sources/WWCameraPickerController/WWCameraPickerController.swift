@@ -3,7 +3,7 @@
 //  WWCameraPickerController
 //
 //  Created by William.Weng on 2021/12/7.
-//  ~/Library/Caches/org.swift.swiftpm/
+//
 
 import UIKit
 import AVFoundation
@@ -12,11 +12,12 @@ import PhotosUI
 open class WWCameraViewController: UIViewController {
         
     @IBInspectable public var useMovieOutput: Bool = false
-    
+        
     private let captureSession = AVCaptureSession()
     private let capturePhotoOutput = AVCapturePhotoOutput()
     private let captureMovieFileOutput = AVCaptureMovieFileOutput()
 
+    private var defaultPosition: AVCaptureDevice.Position = .unspecified
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var cameraModeSetting: (flashMode: AVCaptureDevice.FlashMode, isHighResolution: Bool, quality: AVCapturePhotoOutput.QualityPrioritization) = (.auto, true, .quality)
     
@@ -42,18 +43,7 @@ extension WWCameraViewController: AVCapturePhotoCaptureDelegate {
 extension WWCameraViewController: AVCaptureFileOutputRecordingDelegate {
     
     public func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        
-        if let error = error { self.takeMovieClosure?(.failure(error)) }
-        
-        PHPhotoLibrary.shared()._saveVideo(at: outputFileURL) { result in
-            
-            _ = FileManager.default._removeFile(at: outputFileURL)
-            
-            switch result {
-            case .failure(let error): self.takeMovieClosure?(.failure(error))
-            case .success(let isSuccess): self.takeMovieClosure?(.success(isSuccess))
-            }
-        }
+        fileOutputAction(output, didFinishRecordingTo: outputFileURL, from: connections, error: error)
     }
 }
 
@@ -164,6 +154,12 @@ public extension WWCameraViewController {
 // MARK: - 開放使用的函數 (設定)
 public extension WWCameraViewController {
     
+    /// 設定一開始的鏡頭位置 (設定一開始起動的鏡頭位置)
+    /// - Parameter defaultPosition: AVCaptureDevice.Position
+    func defaultPosition(_ defaultPosition: AVCaptureDevice.Position) {
+        self.defaultPosition = defaultPosition
+    }
+    
     /// 設定閃光燈模式
     /// - Parameter flashMode: AVCaptureDevice.FlashMode
     func flashModeSetting(_ flashMode: AVCaptureDevice.FlashMode = .auto) { cameraModeSetting.flashMode = flashMode }
@@ -180,16 +176,18 @@ public extension WWCameraViewController {
 // MARK: - 小工具
 private extension WWCameraViewController {
     
+    /// 初始化設定
     func initSetting() {
-        _ = photoSetting()
+        _ = photoSetting(position: defaultPosition)
         if (useMovieOutput) { _ = movieSetting() }
     }
     
     /// [取得鏡頭 => NSCameraUsageDescription](https://medium.com/彼得潘的-swift-ios-app-開發教室/qrcode掃起來-24e086df902c)
+    /// - Parameter position: AVCaptureDevice.Position
     /// - Returns: Bool
-    func photoSetting() -> Bool {
-        
-        guard let device = AVCaptureDevice._default(for: .video),
+    func photoSetting(position: AVCaptureDevice.Position) -> Bool {
+                
+        guard let device = defaultCamera(position: position),
               let input = try? device._captureInput().get(),
               let _previewLayer = Optional.some(captureSession._previewLayer(with: view.bounds, videoGravity: .resizeAspect)),
               captureSession._canAddInput(input),
@@ -203,7 +201,22 @@ private extension WWCameraViewController {
         
         return true
     }
-
+    
+    /// 指定預設的鏡頭 (前 / 後 / 預設)
+    /// - Parameter position: AVCaptureDevice.Position
+    /// - Returns: AVCaptureDevice?
+    func defaultCamera(position: AVCaptureDevice.Position = .unspecified) -> AVCaptureDevice? {
+        
+        let defaultDevice = AVCaptureDevice._default(for: .video)
+        let wideAngleDevices = AVCaptureDevice._wideAngleCamera()
+        
+        switch position {
+        case .front: return wideAngleDevices.front
+        case .back: return wideAngleDevices.back
+        case .unspecified: return defaultDevice
+        }
+    }
+    
     /// [取得麥克風 => NSMicrophoneUsageDescription](https://ithelp.ithome.com.tw/articles/10206444)
     /// - UIFileSharingEnabled
     /// - Returns: Bool
@@ -225,6 +238,27 @@ private extension WWCameraViewController {
     /// - Returns: URL
     func tempMovieFileUrl(with name: String = Date().description) -> URL {
         return FileManager.default._temporaryDirectory().appendingPathComponent("\(name).mov")
+    }
+    
+    /// 處理檔案輸出的功能 (影片)
+    /// - Parameters:
+    ///   - output: AVCaptureFileOutput
+    ///   - outputFileURL: URL
+    ///   - connections: [AVCaptureConnection]
+    ///   - error: Error?
+    func fileOutputAction(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
+        if let error = error { self.takeMovieClosure?(.failure(error)) }
+        
+        PHPhotoLibrary.shared()._saveVideo(at: outputFileURL) { result in
+            
+            _ = FileManager.default._removeFile(at: outputFileURL)
+            
+            switch result {
+            case .failure(let error): self.takeMovieClosure?(.failure(error))
+            case .success(let isSuccess): self.takeMovieClosure?(.success(isSuccess))
+            }
+        }
     }
 }
 

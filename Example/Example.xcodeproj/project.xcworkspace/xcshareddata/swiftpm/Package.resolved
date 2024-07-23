@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWCameraPickerController",
       "state" : {
-        "revision" : "53550fdf3e5c430ef9dabf32bc5b12eccb702902",
-        "version" : "1.1.2"
+        "revision" : "8922a64b393c55b62f7b921fe3eb9c5edc50302a",
+        "version" : "1.1.3"
       }
     },
     {

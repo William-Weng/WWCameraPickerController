@@ -17,6 +17,7 @@ dependencies: [
 ### Function - 可用函式
 |函式|功能|
 |-|-|
+|defaultPosition(_:)|設定一開始起動的鏡頭位置|
 |startRunning()|啟動相機預覽|
 |stopRunning()|關閉相機預覽|
 |isRunning()|相機預覽是否在運作？|
@@ -55,20 +56,11 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        takePhotoAction()
-        takeMovieAction()
+        initSetting()
     }
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let viewController = segue.destination as? WWCameraViewController,
-              let zoomRange = viewController.cameraZoomRange()
-        else {
-            return
-        }
-        
-        cameraViewController = viewController
-        zoomSlider._setting(value: Float(zoomRange.min), max: Float(zoomRange.max), min: Float(zoomRange.min), isContinuous: true)
+        prepareAction(for: segue, sender: sender)
     }
     
     @IBAction func startRunning(_ sender: UIButton) { cameraViewController?.startRunning() }
@@ -86,11 +78,14 @@ final class ViewController: UIViewController {
     @IBAction func stopRecording(_ sender: UIButton) { cameraViewController?.stopRecording() }
 }
 
-// MARK: - 小工具
-extension ViewController {
+private extension ViewController {
     
-    /// 拍照的相關動作 (拍照 => 存照片)
-    private func takePhotoAction() {
+    func initSetting() {
+        takePhotoAction()
+        takeMovieAction()
+    }
+    
+    func takePhotoAction() {
         
         guard let cameraViewController = cameraViewController else { return }
         
@@ -110,8 +105,7 @@ extension ViewController {
         })
     }
     
-    /// 錄影的相關動作 (錄影片 => 存影片)
-    private func takeMovieAction() {
+    func takeMovieAction() {
         
         guard let cameraViewController = cameraViewController else { return }
         
@@ -121,6 +115,20 @@ extension ViewController {
             case .success(let isSuccess): wwPrint(isSuccess)
             }
         }
+    }
+    
+    func prepareAction(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        guard let viewController = segue.destination as? WWCameraViewController,
+              let zoomRange = viewController.cameraZoomRange()
+        else {
+            return
+        }
+        
+        cameraViewController = viewController
+        cameraViewController?.defaultPosition(.back)
+        
+        zoomSlider._setting(value: Float(zoomRange.min), max: Float(zoomRange.max), min: Float(zoomRange.min), isContinuous: true)
     }
 }
 ```
