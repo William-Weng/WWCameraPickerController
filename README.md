@@ -14,6 +14,11 @@ dependencies: [
 ]
 ```
 
+### Parameter - 可用參數
+|參數|說明|
+|-|-|
+|isRunning|相機預覽是否在運作？|
+
 ### Function - 可用函式
 |函式|功能|
 |-|-|

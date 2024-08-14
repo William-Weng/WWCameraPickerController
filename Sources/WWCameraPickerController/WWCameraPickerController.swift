@@ -9,14 +9,18 @@ import UIKit
 import AVFoundation
 import PhotosUI
 
+// MARK: - WWCameraViewController
 open class WWCameraViewController: UIViewController {
         
     @IBInspectable public var useMovieOutput: Bool = false
-        
+    
+    /// 相機預覽是否在運作？
+    public var isRunning: Bool { captureSession.isRunning }
+    
     private let captureSession = AVCaptureSession()
     private let capturePhotoOutput = AVCapturePhotoOutput()
     private let captureMovieFileOutput = AVCaptureMovieFileOutput()
-
+    
     private var defaultPosition: AVCaptureDevice.Position = .unspecified
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var cameraModeSetting: (flashMode: AVCaptureDevice.FlashMode, isHighResolution: Bool, quality: AVCapturePhotoOutput.QualityPrioritization) = (.auto, true, .quality)
@@ -60,9 +64,6 @@ public extension WWCameraViewController {
     
     /// 關閉相機預覽
     func stopRunning() { captureSession.stopRunning() }
-    
-    /// 相機預覽是否在運作？
-    func isRunning() -> Bool { captureSession.isRunning }
     
     /// 執行拍照功能
     func capturePhoto() {
