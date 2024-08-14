@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		3DBCD88026F198F300522E3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DBCD87E26F198F300522E3B /* LaunchScreen.storyboard */; };
 		3DCD2851275F3CAF000AB319 /* Extension+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD2850275F3CAF000AB319 /* Extension+.swift */; };
 		818A66B02C6C8DFC00C5DDBB /* WWCameraPickerController in Frameworks */ = {isa = PBXBuildFile; productRef = 818A66AF2C6C8DFC00C5DDBB /* WWCameraPickerController */; };
+		818A66B32C6C8F5800C5DDBB /* WWCameraPickerController in Frameworks */ = {isa = PBXBuildFile; productRef = 818A66B22C6C8F5800C5DDBB /* WWCameraPickerController */; };
 		81AA150D2C4F43900008C473 /* WWCameraPickerController in Frameworks */ = {isa = PBXBuildFile; productRef = 81AA150C2C4F43900008C473 /* WWCameraPickerController */; };
 		81DA19B72C4A60380064B2F9 /* WWCameraPickerController in Frameworks */ = {isa = PBXBuildFile; productRef = 81DA19B62C4A60380064B2F9 /* WWCameraPickerController */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 				818A66B02C6C8DFC00C5DDBB /* WWCameraPickerController in Frameworks */,
 				3D8B8719275F465F002BB566 /* WWPrint in Frameworks */,
 				81DA19B72C4A60380064B2F9 /* WWCameraPickerController in Frameworks */,
+				818A66B32C6C8F5800C5DDBB /* WWCameraPickerController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +130,7 @@
 				81DA19B62C4A60380064B2F9 /* WWCameraPickerController */,
 				81AA150C2C4F43900008C473 /* WWCameraPickerController */,
 				818A66AF2C6C8DFC00C5DDBB /* WWCameraPickerController */,
+				818A66B22C6C8F5800C5DDBB /* WWCameraPickerController */,
 			);
 			productName = Example;
 			productReference = 3DBCD87026F198EF00522E3B /* Example.app */;
@@ -159,7 +162,7 @@
 			mainGroup = 3DBCD86726F198EF00522E3B;
 			packageReferences = (
 				3D8B8717275F465F002BB566 /* XCRemoteSwiftPackageReference "WWPrint" */,
-				818A66AE2C6C8DFC00C5DDBB /* XCLocalSwiftPackageReference "../WWCameraPickerController" */,
+				818A66B12C6C8F5800C5DDBB /* XCRemoteSwiftPackageReference "WWCameraPickerController" */,
 			);
 			productRefGroup = 3DBCD87126F198EF00522E3B /* Products */;
 			projectDirPath = "";
@@ -405,13 +408,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		818A66AE2C6C8DFC00C5DDBB /* XCLocalSwiftPackageReference "../WWCameraPickerController" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../WWCameraPickerController;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		3D8B8717275F465F002BB566 /* XCRemoteSwiftPackageReference "WWPrint" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -419,6 +415,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.3.1;
+			};
+		};
+		818A66B12C6C8F5800C5DDBB /* XCRemoteSwiftPackageReference "WWCameraPickerController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/William-Weng/WWCameraPickerController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -431,6 +435,11 @@
 		};
 		818A66AF2C6C8DFC00C5DDBB /* WWCameraPickerController */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = WWCameraPickerController;
+		};
+		818A66B22C6C8F5800C5DDBB /* WWCameraPickerController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 818A66B12C6C8F5800C5DDBB /* XCRemoteSwiftPackageReference "WWCameraPickerController" */;
 			productName = WWCameraPickerController;
 		};
 		81AA150C2C4F43900008C473 /* WWCameraPickerController */ = {

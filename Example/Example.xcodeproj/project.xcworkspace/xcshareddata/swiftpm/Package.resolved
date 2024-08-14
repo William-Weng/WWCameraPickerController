@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "wwcamerapickercontroller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/William-Weng/WWCameraPickerController",
+      "state" : {
+        "revision" : "6c4f271caf70a2111518ac1d4cceb83af4a805f4",
+        "version" : "1.2.1"
+      }
+    },
+    {
       "identity" : "wwprint",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWPrint.git",
